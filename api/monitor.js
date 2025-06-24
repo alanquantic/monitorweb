@@ -138,38 +138,45 @@ export default async function handler(req, res) {
       headless: chromiumPack.headless
     };
 
-    // Procesar cada sitio con su propio browser
-    for (const site of sites.filter(s => s.enabled)) {
+    // Procesar solo los primeros 5 sitios para evitar timeout
+    const enabledSites = sites.filter(s => s.enabled).slice(0, 5);
+    console.log(`📊 Procesando ${enabledSites.length} sitios para evitar timeout de Vercel`);
+
+    for (const site of enabledSites) {
       let browser = null;
       try {
         console.log(`📸 Capturando ${site.name}...`);
         
-        // Nuevo browser para cada sitio (más estable en Vercel)
+        // Browser optimizado para Vercel
         browser = await chromium.launch(browserConfig);
         
         const context = await browser.newContext({
-          viewport: { width: 1920, height: 1080 }
+          viewport: { width: 1280, height: 720 } // Resolución más pequeña
         });
         
         const page = await context.newPage();
         const startTime = Date.now();
         
         await page.goto(site.url, { 
-          waitUntil: 'networkidle',
-          timeout: 30000 
+          waitUntil: 'domcontentloaded', // Más rápido que networkidle
+          timeout: 15000 // Timeout más corto
         });
 
-        if (site.waitForSelector) {
-          await page.waitForSelector(site.waitForSelector, { timeout: 10000 });
+        // Selector más simple y rápido
+        try {
+          await page.waitForSelector('body', { timeout: 5000 });
+        } catch (e) {
+          console.log(`⚠️ No se encontró selector para ${site.name}, continuando...`);
         }
 
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(1000); // Tiempo más corto
         const responseTime = Date.now() - startTime;
 
-        // Capturar screenshot como base64 para email
+        // Capturar screenshot optimizado
         const screenshotBuffer = await page.screenshot({
-          fullPage: true,
-          type: 'png'
+          fullPage: false, // Solo viewport para ser más rápido
+          type: 'png',
+          quality: 80 // Calidad más baja para archivos más pequeños
         });
 
         // Obtener estadísticas
@@ -219,12 +226,14 @@ export default async function handler(req, res) {
     // Generar reporte
     const report = {
       timestamp: new Date().toLocaleString('es-ES'),
-      totalSites: sites.length,
+      totalSites: enabledSites.length,
+      totalConfigured: sites.length,
       successful: results.filter(r => r.success).length,
       failed: results.filter(r => !r.success).length,
       results: results.map(r => ({ ...r, screenshot: undefined })), // Sin screenshot en JSON
       summary: {
-        uptime: ((results.filter(r => r.success).length / results.length) * 100).toFixed(1)
+        uptime: results.length > 0 ? ((results.filter(r => r.success).length / results.length) * 100).toFixed(1) : "0",
+        note: `Procesando ${enabledSites.length} de ${sites.length} sitios (optimización Vercel)`
       }
     };
 
