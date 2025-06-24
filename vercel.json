@@ -2,6 +2,12 @@
   "functions": {
     "api/monitor.js": {
       "maxDuration": 300
+    },
+    "api/monitor-group2.js": {
+      "maxDuration": 300
+    },
+    "api/monitor-group3.js": {
+      "maxDuration": 300
     }
   },
   "crons": [
@@ -10,16 +16,48 @@
       "schedule": "0 14 * * *"
     },
     {
-      "path": "/api/monitor", 
+      "path": "/api/monitor-group2",
+      "schedule": "2 14 * * *"
+    },
+    {
+      "path": "/api/monitor-group3",
+      "schedule": "4 14 * * *"
+    },
+    {
+      "path": "/api/monitor",
       "schedule": "0 19 * * *"
+    },
+    {
+      "path": "/api/monitor-group2",
+      "schedule": "2 19 * * *"
+    },
+    {
+      "path": "/api/monitor-group3",
+      "schedule": "4 19 * * *"
     },
     {
       "path": "/api/monitor",
       "schedule": "45 22 * * *"
     },
     {
+      "path": "/api/monitor-group2",
+      "schedule": "47 22 * * *"
+    },
+    {
+      "path": "/api/monitor-group3",
+      "schedule": "49 22 * * *"
+    },
+    {
       "path": "/api/monitor",
       "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/monitor-group2",
+      "schedule": "2 4 * * *"
+    },
+    {
+      "path": "/api/monitor-group3",
+      "schedule": "4 4 * * *"
     }
   ],
   "buildCommand": "echo 'No build needed for serverless functions'",
