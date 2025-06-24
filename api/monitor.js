@@ -175,8 +175,8 @@ export default async function handler(req, res) {
         // Capturar screenshot optimizado
         const screenshotBuffer = await page.screenshot({
           fullPage: false, // Solo viewport para ser más rápido
-          type: 'png',
-          quality: 80 // Calidad más baja para archivos más pequeños
+          type: 'png'
+          // quality no es compatible con PNG, solo con JPEG
         });
 
         // Obtener estadísticas
