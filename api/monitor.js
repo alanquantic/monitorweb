@@ -123,19 +123,28 @@ export default async function handler(req, res) {
 
     const results = [];
     
-    // Inicializar navegador para Vercel
+    // Inicializar navegador para Vercel con configuración optimizada
     const browser = await chromium.launch({
-      args: chromiumPack.args,
+      args: [
+        ...chromiumPack.args,
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-web-security',
+        '--disable-features=VizDisplayCompositor'
+      ],
       executablePath: await chromiumPack.executablePath(),
       headless: chromiumPack.headless
     });
 
     // Procesar cada sitio
     for (const site of sites.filter(s => s.enabled)) {
+      let context = null;
       try {
         console.log(`📸 Capturando ${site.name}...`);
         
-        const context = await browser.newContext({
+        context = await browser.newContext({
           viewport: { width: 1920, height: 1080 }
         });
         
@@ -183,6 +192,16 @@ export default async function handler(req, res) {
 
       } catch (error) {
         console.error(`❌ Error con ${site.name}:`, error.message);
+        
+        // Cerrar contexto si existe para evitar memory leaks
+        if (context) {
+          try {
+            await context.close();
+          } catch (closeError) {
+            console.log(`⚠️ Error cerrando contexto para ${site.name}`);
+          }
+        }
+        
         results.push({
           success: false,
           site: site.name,
