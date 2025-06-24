@@ -123,8 +123,8 @@ export default async function handler(req, res) {
 
     const results = [];
     
-    // Inicializar navegador para Vercel con configuración optimizada
-    const browser = await chromium.launch({
+    // Configuración del browser para Vercel
+    const browserConfig = {
       args: [
         ...chromiumPack.args,
         '--disable-dev-shm-usage',
@@ -136,15 +136,18 @@ export default async function handler(req, res) {
       ],
       executablePath: await chromiumPack.executablePath(),
       headless: chromiumPack.headless
-    });
+    };
 
-    // Procesar cada sitio
+    // Procesar cada sitio con su propio browser
     for (const site of sites.filter(s => s.enabled)) {
-      let context = null;
+      let browser = null;
       try {
         console.log(`📸 Capturando ${site.name}...`);
         
-        context = await browser.newContext({
+        // Nuevo browser para cada sitio (más estable en Vercel)
+        browser = await chromium.launch(browserConfig);
+        
+        const context = await browser.newContext({
           viewport: { width: 1920, height: 1080 }
         });
         
@@ -178,6 +181,7 @@ export default async function handler(req, res) {
         }));
 
         await context.close();
+        await browser.close();
 
         results.push({
           success: true,
@@ -193,12 +197,12 @@ export default async function handler(req, res) {
       } catch (error) {
         console.error(`❌ Error con ${site.name}:`, error.message);
         
-        // Cerrar contexto si existe para evitar memory leaks
-        if (context) {
+        // Cerrar browser si existe para evitar memory leaks
+        if (browser) {
           try {
-            await context.close();
+            await browser.close();
           } catch (closeError) {
-            console.log(`⚠️ Error cerrando contexto para ${site.name}`);
+            console.log(`⚠️ Error cerrando browser para ${site.name}`);
           }
         }
         
@@ -211,8 +215,6 @@ export default async function handler(req, res) {
         });
       }
     }
-
-    await browser.close();
 
     // Generar reporte
     const report = {
