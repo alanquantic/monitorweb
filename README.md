@@ -2,6 +2,8 @@
 
 Sistema de monitoreo automático que toma capturas de pantalla de sitios web, las organiza por fecha/hora y envía reportes por email. Perfecto para monitorear el estado visual de múltiples sitios web.
 
+> **✅ Última actualización**: Configuración optimizada para deployment automático desde GitHub
+
 ## ✨ Características
 
 - 📸 **Capturas automáticas** con Playwright (soporte multi-navegador)
