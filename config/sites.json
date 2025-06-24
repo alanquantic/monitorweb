@@ -1,0 +1,26 @@
+{
+  "sites": [
+    {
+      "id": "ceosnew-media",
+      "name": "CEOs New Media",
+      "url": "https://ceosnew.media/",
+      "enabled": true,
+      "waitForSelector": "h1",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "CEOs New Media - Sitio Principal",
+        "description": "Estrategias Digitales que Impactan en el Mercado"
+      }
+    }
+  ],
+  "defaultOptions": {
+    "timeout": 30000,
+    "waitTime": 3000,
+    "retryAttempts": 3,
+    "screenshotFormat": "png"
+  }
+} 
