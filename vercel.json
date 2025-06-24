@@ -10,6 +10,8 @@
       "schedule": "0 */8 * * *"
     }
   ],
+  "buildCommand": "echo 'No build needed for serverless functions'",
+  "outputDirectory": ".",
   "env": {
     "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
   }

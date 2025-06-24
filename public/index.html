@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Monitor 24/7</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status { 
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #00d084;
+            color: white;
+            font-size: 14px;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #007acc;
+        }
+        a { color: #007acc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🌐 Website Monitor 24/7</h1>
+        <p><span class="status">🟢 ONLINE</span></p>
+        
+        <p>Sistema de monitoreo automático de sitios web con capturas de pantalla y reportes por email.</p>
+        
+        <h3>📊 Endpoints disponibles:</h3>
+        
+        <div class="endpoint">
+            <strong><a href="/api/monitor">/api/monitor</a></strong><br>
+            Ejecuta monitoreo manual de todos los sitios
+        </div>
+        
+        <div class="endpoint">
+            <strong><a href="/api/health">/api/health</a></strong><br>
+            Estado del sistema y última ejecución
+        </div>
+        
+        <h3>⚡ Características:</h3>
+        <ul>
+            <li>📸 Capturas automáticas cada 8 horas</li>
+            <li>📧 Reportes por email via Mailgun</li>
+            <li>📊 Integración con Cachet status pages</li>
+            <li>🧹 Limpieza automática de archivos antiguos</li>
+            <li>🔍 Health checks y monitoreo 24/7</li>
+        </ul>
+        
+        <p><small>Powered by Vercel + Playwright + Mailgun</small></p>
+    </div>
+</body>
+</html> 
