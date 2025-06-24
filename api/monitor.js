@@ -1,5 +1,5 @@
 import { chromium } from 'playwright-core';
-import chromium_pkg from '@sparticuz/chromium-min';
+import chromium_pkg from '@sparticuz/chromium';
 import Mailgun from 'mailgun.js';
 import formData from 'form-data';
 import axios from 'axios';
