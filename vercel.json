@@ -7,7 +7,19 @@
   "crons": [
     {
       "path": "/api/monitor",
-      "schedule": "0 */8 * * *"
+      "schedule": "0 14 * * *"
+    },
+    {
+      "path": "/api/monitor", 
+      "schedule": "0 19 * * *"
+    },
+    {
+      "path": "/api/monitor",
+      "schedule": "45 22 * * *"
+    },
+    {
+      "path": "/api/monitor",
+      "schedule": "0 4 * * *"
     }
   ],
   "buildCommand": "echo 'No build needed for serverless functions'",

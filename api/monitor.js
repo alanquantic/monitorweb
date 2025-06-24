@@ -22,16 +22,104 @@ export default async function handler(req, res) {
       url: 'https://api.mailgun.net'
     });
 
-    // Sitios a monitorear (desde variables de entorno o hardcoded)
-    const sites = JSON.parse(process.env.SITES_CONFIG || `[
-      {
-        "id": "ceosnew-media",
-        "name": "CEOs New Media",
-        "url": "https://ceosnew.media/",
-        "enabled": true,
-        "waitForSelector": "h1"
-      }
-    ]`);
+    // Sitios a monitorear desde config/sites.json
+    const sitesConfig = {
+      "sites": [
+        {
+          "id": "ceosnew-media",
+          "name": "CEOs New Media",
+          "url": "https://ceosnew.media/",
+          "enabled": true,
+          "waitForSelector": "h1"
+        },
+        {
+          "id": "jacamar-emporium",
+          "name": "Jacamar Residencial",
+          "url": "https://jacamar.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "worldwide-chassis",
+          "name": "Worldwide Chassis Network",
+          "url": "https://worldwidechassisnetwork.com/",
+          "enabled": true,
+          "waitForSelector": "h1, .main, header"
+        },
+        {
+          "id": "grupo-emporium",
+          "name": "Grupo Emporium",
+          "url": "https://grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "selva-ambar",
+          "name": "Selva Ambar",
+          "url": "https://selvaambar.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "loma-alta",
+          "name": "Loma Alta",
+          "url": "https://lomaalta.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "andrea-emporium",
+          "name": "Andrea Emporium",
+          "url": "https://andrea.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "morgan-online",
+          "name": "Morgan Online",
+          "url": "https://morganonline.com.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "brecmar",
+          "name": "Brecmar",
+          "url": "https://brecmar.com/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "vivanta-emporium",
+          "name": "Vivanta Emporium",
+          "url": "https://vivanta.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "luzia-residencial",
+          "name": "Luzia Residencial",
+          "url": "https://luziaresidencial.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "punta-del-cielo",
+          "name": "Punta del Cielo",
+          "url": "https://puntadelcielo.grupoemporium.mx/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        },
+        {
+          "id": "bull-chassis",
+          "name": "Bull Chassis",
+          "url": "https://bullchassis.com/",
+          "enabled": true,
+          "waitForSelector": ".main, h1, header"
+        }
+      ]
+    };
+    
+    const sites = sitesConfig.sites;
 
     const results = [];
     
@@ -122,13 +210,26 @@ export default async function handler(req, res) {
     // Enviar email con Mailgun
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_TO) {
       const failedSites = results.filter(r => !r.success);
+      const currentTime = new Date().toLocaleString('es-MX', { 
+        timeZone: 'America/Mexico_City',
+        hour12: true 
+      });
+      
       const subject = failedSites.length > 0 
-        ? `🚨 Monitor Web - ${failedSites.length} sitios con problemas`
-        : `✅ Monitor Web - Todos funcionando (${report.summary.uptime}% uptime)`;
+        ? `🚨 Monitor Web ${currentTime} - ${failedSites.length} sitios con problemas`
+        : `✅ Monitor Web ${currentTime} - Todos funcionando (${report.summary.uptime}% uptime)`;
+
+      // Múltiples destinatarios
+      const recipients = [
+        process.env.MAILGUN_TO,
+        'andres@ceosnm.com',
+        'yarely@ceosnm.com', 
+        'erik@ceosnm.com'
+      ].filter(email => email).join(', ');
 
       const messageData = {
         from: `Monitor Web <noreply@${process.env.MAILGUN_DOMAIN}>`,
-        to: process.env.MAILGUN_TO,
+        to: recipients,
         subject: subject,
         html: generateEmailHTML(report, failedSites),
         attachment: []
@@ -173,19 +274,26 @@ export default async function handler(req, res) {
 }
 
 function generateEmailHTML(report, failedSites) {
+  const timeZone = new Date().toLocaleString('es-MX', { 
+    timeZone: 'America/Mexico_City',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+  
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
       <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-        📊 Reporte de Monitoreo Web (Vercel)
+        📊 Reporte de Monitoreo Web - 13 Sitios CEOs NM
       </h2>
       
       <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
-        <h3 style="color: #495057; margin-top: 0;">Resumen</h3>
-        <p><strong>Fecha:</strong> ${report.timestamp}</p>
-        <p><strong>Total de sitios:</strong> ${report.totalSites}</p>
-        <p><strong>Exitosos:</strong> <span style="color: #28a745;">${report.successful}</span></p>
-        <p><strong>Con problemas:</strong> <span style="color: #dc3545;">${report.failed}</span></p>
-        <p><strong>Uptime:</strong> <span style="color: ${report.summary.uptime >= 95 ? '#28a745' : '#dc3545'};">${report.summary.uptime}%</span></p>
+        <h3 style="color: #495057; margin-top: 0;">📈 Resumen Ejecutivo</h3>
+        <p><strong>📅 Fecha:</strong> ${timeZone}</p>
+        <p><strong>🌐 Total de sitios:</strong> ${report.totalSites}</p>
+        <p><strong>✅ Funcionando:</strong> <span style="color: #28a745; font-weight: bold;">${report.successful}</span></p>
+        <p><strong>❌ Con problemas:</strong> <span style="color: #dc3545; font-weight: bold;">${report.failed}</span></p>
+        <p><strong>📊 Uptime general:</strong> <span style="color: ${report.summary.uptime >= 95 ? '#28a745' : '#dc3545'}; font-weight: bold; font-size: 18px;">${report.summary.uptime}%</span></p>
+        <p style="color: #666; font-size: 14px;"><strong>👥 Destinatarios:</strong> alan@ceosnm.com, andres@ceosnm.com, yarely@ceosnm.com, erik@ceosnm.com</p>
       </div>
 
       ${failedSites.length > 0 ? `

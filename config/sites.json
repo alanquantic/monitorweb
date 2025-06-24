@@ -12,8 +12,200 @@
         "format": "png"
       },
       "cachet": {
-        "componentName": "CEOs New Media - Sitio Principal",
-        "description": "Estrategias Digitales que Impactan en el Mercado"
+        "componentName": "CEOs New Media",
+        "description": "Sitio principal de CEOs New Media"
+      }
+    },
+    {
+      "id": "jacamar-emporium",
+      "name": "Jacamar Residencial",
+      "url": "https://jacamar.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Jacamar Residencial",
+        "description": "Desarrollo residencial de lujo Jacamar"
+      }
+    },
+    {
+      "id": "worldwide-chassis",
+      "name": "Worldwide Chassis Network",
+      "url": "https://worldwidechassisnetwork.com/",
+      "enabled": true,
+      "waitForSelector": "h1, .main, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Worldwide Chassis Network",
+        "description": "Red mundial de chasis para contenedores"
+      }
+    },
+    {
+      "id": "grupo-emporium",
+      "name": "Grupo Emporium",
+      "url": "https://grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Grupo Emporium",
+        "description": "Sitio corporativo de Grupo Emporium"
+      }
+    },
+    {
+      "id": "selva-ambar",
+      "name": "Selva Ambar",
+      "url": "https://selvaambar.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Selva Ambar",
+        "description": "Desarrollo residencial Selva Ambar"
+      }
+    },
+    {
+      "id": "loma-alta",
+      "name": "Loma Alta",
+      "url": "https://lomaalta.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Loma Alta",
+        "description": "Desarrollo residencial Loma Alta"
+      }
+    },
+    {
+      "id": "andrea-emporium",
+      "name": "Andrea Emporium",
+      "url": "https://andrea.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Andrea Emporium",
+        "description": "Desarrollo Andrea Emporium"
+      }
+    },
+    {
+      "id": "morgan-online",
+      "name": "Morgan Online",
+      "url": "https://morganonline.com.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Morgan Online",
+        "description": "Plataforma Morgan Online"
+      }
+    },
+    {
+      "id": "brecmar",
+      "name": "Brecmar",
+      "url": "https://brecmar.com/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Brecmar",
+        "description": "Sitio web Brecmar"
+      }
+    },
+    {
+      "id": "vivanta-emporium",
+      "name": "Vivanta Emporium",
+      "url": "https://vivanta.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Vivanta Emporium",
+        "description": "Desarrollo residencial Vivanta"
+      }
+    },
+    {
+      "id": "luzia-residencial",
+      "name": "Luzia Residencial",
+      "url": "https://luziaresidencial.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Luzia Residencial",
+        "description": "Desarrollo residencial Luzia"
+      }
+    },
+    {
+      "id": "punta-del-cielo",
+      "name": "Punta del Cielo",
+      "url": "https://puntadelcielo.grupoemporium.mx/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Punta del Cielo",
+        "description": "Desarrollo residencial Punta del Cielo"
+      }
+    },
+    {
+      "id": "bull-chassis",
+      "name": "Bull Chassis",
+      "url": "https://bullchassis.com/",
+      "enabled": true,
+      "waitForSelector": ".main, h1, header",
+      "screenshotOptions": {
+        "fullPage": true,
+        "quality": 90,
+        "format": "png"
+      },
+      "cachet": {
+        "componentName": "Bull Chassis",
+        "description": "Sitio web Bull Chassis"
       }
     }
   ],
